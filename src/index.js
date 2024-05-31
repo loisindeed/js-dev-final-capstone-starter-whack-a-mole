@@ -7,60 +7,40 @@ const timerDisplay = document.querySelector('#timer').innerText;
 
 let time = 0;
 let timer;
-let lastHole = 0;
+let lastHole = 0; 
 let points = 0;
 let difficulty = "hard";
 
-/**
- * Generates a random integer within a range.
- *
- * The function takes two values as parameters that limits the range 
- * of the number to be generated. For example, calling randomInteger(0,10)
- * will return a random integer between 0 and 10. Calling randomInteger(10,200)
- * will return a random integer between 10 and 200.
- *
- */
 function randomInteger(min, max) {
-  // return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-/**
- * Sets the time delay given a difficulty parameter.
- *
- * The function takes a `difficulty` parameter that can have three values: `easy`
- * `normal` or `hard`. If difficulty is "easy" then the function returns a time delay
- * of 1500 milliseconds (or 1.5 seconds). If the difficulty is set to "normal" it should
- * return 1000. If difficulty is set to "hard" it should return a randomInteger between
- * 600 and 1200.
- *
- * Example: 
- * setDelay("easy") //> returns 1500
- * setDelay("normal") //> returns 1000
- * setDelay("hard") //> returns 856 (returns a random number between 600 and 1200).
- *
- */
 function setDelay(difficulty) {
-  // TODO: Write your code here.
-  
+  switch (difficulty) {
+    case "easy":
+      return 1500;
+    case "normal":
+      return 1000;
+    case "hard":
+      return randomInteger(600, 1200);
+  }
 }
 
-/**
- * Chooses a random hole from a list of holes.
- *
- * This function should select a random Hole from the list of holes.
- * 1. generate a random integer from 0 to 8 and assign it to an index variable
- * 2. get a random hole with the random index (e.g. const hole = holes[index])
- * 3. if hole === lastHole then call chooseHole(holes) again.
- * 4. if hole is not the same as the lastHole then keep track of 
- * it (lastHole = hole) and return the hole
- *
- * Example: 
- * const holes = document.querySelectorAll('.hole');
- * chooseHole(holes) //> returns one of the 9 holes that you defined
- */
 function chooseHole(holes) {
-  // TODO: Write your code here.
+  // * 1. generate a random integer from 0 to 8 and assign it to an index variable
+  let index = Math.floor(Math.random() * (holes.length - 1)); 
 
+  // * 2. get a random hole with the random index (e.g. const hole = holes[index])
+  const hole = holes[index]
+
+  // * 3. if hole === lastHole then call chooseHole(holes) again.
+  if (hole === lastHole) {
+    return chooseHole(holes);
+  } 
+  // * 4. if hole is not the same as the lastHole then keep track of 
+  // * it (lastHole = hole) and return the hole
+    lastHole = hole;
+    return hole;
 }
 
 /**
