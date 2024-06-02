@@ -132,13 +132,14 @@ function setDuration(duration) {
 *
 */
 function stopGame(){
-  // stopAudio(song);  //optional
+  stopAudio(song); 
   clearInterval(timer);
   return "game stopped";
 }
 
 function startGame(){
   setDuration(10);
+  play();
   startTimer();
   showUp();
   return "game started";
@@ -146,6 +147,25 @@ function startGame(){
 
 startButton.addEventListener("click", startGame);
 
+//audio
+const song = new Audio("./assets/birdsong.mp3");
+
+function playAudio(audioObject) {
+  audioObject.play();
+}
+
+function loopAudio(audioObject) {
+  audioObject.loop = true;
+  playAudio(audioObject);
+}
+
+function stopAudio(audioObject) {
+  audioObject.pause();
+}
+
+function play(){
+  playAudio(song);
+}
 
 // Please do not modify the code below.
 // Used for testing purposes.
