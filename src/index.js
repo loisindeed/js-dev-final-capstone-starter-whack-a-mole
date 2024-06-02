@@ -2,10 +2,10 @@ const holes = document.querySelectorAll('.hole');
 const moles = document.querySelectorAll('.mole');
 const startButton = document.querySelector('#start');
 // TODO: Add the missing query selectors:
-let score = document.querySelector('#score').innerText; 
-const timerDisplay = document.querySelector('#timer').innerText;
+const score = document.querySelector('#score'); 
+const timerDisplay = document.querySelector('#timer');
 
-let time = 0;
+let time = 10;
 let timer;
 let lastHole = 0; 
 let points = 0;
@@ -74,7 +74,7 @@ function toggleVisibility(hole){
 
 function updateScore() {
   points++; 
-  score = points; //score selector already declared globally
+  score.textContent = points;
   return points;
 }
 
@@ -84,27 +84,16 @@ function clearScore() {
   return points;
 }
 
-/**
-*
-* Updates the control board with the timer if time > 0
-*
-*/
 function updateTimer() {
-  // TODO: Write your code here.
-  // hint: this code is provided to you in the instructions.
-  
+  if (time > 0){
+    time -= 1;
+    timerDisplay.textContent = time;
+  }
   return time;
 }
 
-/**
-*
-* Starts the timer using setInterval. For each 1000ms (1 second)
-* the updateTimer function get called. This function is already implemented
-*
-*/
 function startTimer() {
-  // TODO: Write your code here
-  // timer = setInterval(updateTimer, 1000);
+  timer = setInterval(updateTimer, 1000);
   return timer;
 }
 
@@ -150,6 +139,7 @@ function stopGame(){
 
 function startGame(){
   setDuration(10);
+  startTimer();
   showUp();
   return "game started";
 }
